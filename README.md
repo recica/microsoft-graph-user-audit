@@ -1,0 +1,102 @@
+# Microsoft Graph User Audit
+
+A Python command-line tool for auditing Microsoft Entra ID (Azure AD) user accounts for common security hygiene issues: missing MFA, guest accounts, disabled accounts still holding licenses, and license usage.
+
+The tool can connect live to a real Entra ID tenant via the Microsoft Graph API and audit real users. If no live credentials are configured, it falls back to local sample data, so the tool always runs standalone.
+
+## Features
+
+- Load users live from Microsoft Graph via device-code sign-in, with automatic fallback to local sample data
+- Show all users
+- Filter users by type (Member / Guest)
+- Show disabled accounts
+- Show users without MFA registered
+- Show a summary report
+- Show security findings (no MFA, guest without MFA, disabled-but-licensed accounts)
+- Export to CSV
+- Export a full report to Markdown
+
+## User Fields
+
+Each user contains:
+
+- Display name
+- User principal name (UPN)
+- Account enabled
+- User type (Member / Guest)
+- Licensed
+- MFA registered
+
+## Requirements
+
+- Python 3
+- An Entra ID App Registration (only needed for live mode — see below)
+
+Python dependencies are listed in `requirements.txt`:
+
+- `msal`
+- `requests`
+
+## Installation
+
+```bash
+git clone https://github.com/updatezero/microsoft-graph-user-audit.git
+cd microsoft-graph-user-audit
+pip3 install -r requirements.txt
+```
+
+Run with local sample data:
+
+```bash
+python3 main.py
+```
+
+### Live mode (real Entra ID tenant)
+
+Live mode calls the Microsoft Graph API on your behalf, so it needs its own Entra ID App Registration (separate from the Azure CLI used in the Azure Resource Reporter project):
+
+1. In the Azure Portal, go to **Microsoft Entra ID → App registrations → New registration**.
+   - Name: e.g. `graph-user-audit-cli`
+   - Supported account types: single tenant
+2. Under **Authentication → Advanced settings**, set **Allow public client flows** to **Yes** (required for device-code sign-in).
+3. Under **API permissions → Add a permission → Microsoft Graph → Delegated permissions**, add:
+   - `User.Read.All`
+   - `UserAuthenticationMethod.Read.All`
+4. Click **Grant admin consent** for the tenant.
+5. Note the **Application (client) ID** and **Directory (tenant) ID** from the app's Overview page.
+
+Then run:
+
+```bash
+export GRAPH_CLIENT_ID=<your-client-id>
+export GRAPH_TENANT_ID=<your-tenant-id>
+python3 main.py
+```
+
+A device code and sign-in link will be printed — sign in with an account that has permission to read directory users. If authentication fails or the environment variables are not set, the tool automatically falls back to the local sample data in `data/sample_users.json`.
+
+## Project Structure
+
+```text
+microsoft-graph-user-audit/
+|-- data/
+|   `-- sample_users.json
+|-- main.py
+|-- graph_client.py
+|-- requirements.txt
+|-- .gitignore
+`-- README.md
+```
+
+## Why This Project Matters
+
+Identity is the primary attack surface in cloud environments. Security and cloud teams need to continuously audit directory hygiene — accounts without MFA, orphaned guest access, disabled accounts that still hold licenses — rather than relying on manual checks in the Entra admin portal. This project automates that audit against a real tenant via the Microsoft Graph API, while still working standalone against local sample data for anyone without Azure access.
+
+## Roadmap
+
+Possible future improvements:
+
+- Add sign-in activity / stale account detection (requires Entra ID P1/P2)
+- Export security findings to CSV
+- Add automated tests
+- Add a redacted sample live report, following the pattern used in the Azure Resource Reporter project

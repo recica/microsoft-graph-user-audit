@@ -1,0 +1,42 @@
+[
+    {
+        "display_name": "Anna Meier",
+        "user_principal_name": "anna.meier@artrecica01gmail.onmicrosoft.com",
+        "account_enabled": true,
+        "user_type": "Member",
+        "licensed": true,
+        "mfa_registered": true
+    },
+    {
+        "display_name": "Ben Keller",
+        "user_principal_name": "ben.keller@artrecica01gmail.onmicrosoft.com",
+        "account_enabled": true,
+        "user_type": "Member",
+        "licensed": true,
+        "mfa_registered": false
+    },
+    {
+        "display_name": "External Contractor",
+        "user_principal_name": "contractor_external.com#EXT#@artrecica01gmail.onmicrosoft.com",
+        "account_enabled": true,
+        "user_type": "Guest",
+        "licensed": false,
+        "mfa_registered": false
+    },
+    {
+        "display_name": "Old Intern",
+        "user_principal_name": "old.intern@artrecica01gmail.onmicrosoft.com",
+        "account_enabled": false,
+        "user_type": "Member",
+        "licensed": true,
+        "mfa_registered": false
+    },
+    {
+        "display_name": "Sara Fischer",
+        "user_principal_name": "sara.fischer@artrecica01gmail.onmicrosoft.com",
+        "account_enabled": true,
+        "user_type": "Member",
+        "licensed": true,
+        "mfa_registered": true
+    }
+]
