@@ -40,7 +40,7 @@ Python dependencies are listed in `requirements.txt`:
 ## Installation
 
 ```bash
-git clone https://github.com/updatezero/microsoft-graph-user-audit.git
+git clone https://github.com/recica/microsoft-graph-user-audit.git
 cd microsoft-graph-user-audit
 pip3 install -r requirements.txt
 ```
