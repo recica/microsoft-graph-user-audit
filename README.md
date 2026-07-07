@@ -1,5 +1,7 @@
 # Microsoft Graph User Audit
 
+> **In plain English:** This program checks the user accounts in a company's Microsoft cloud environment and flags security risks — like accounts without extra login protection (multi-factor authentication), or external guest accounts that shouldn't still have access.
+
 A Python command-line tool for auditing Microsoft Entra ID (Azure AD) user accounts for common security hygiene issues: missing MFA, guest accounts, disabled accounts still holding licenses, and license usage.
 
 The tool can connect live to a real Entra ID tenant via the Microsoft Graph API and audit real users. If no live credentials are configured, it falls back to local sample data, so the tool always runs standalone.
