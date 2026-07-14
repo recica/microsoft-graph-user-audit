@@ -6,6 +6,8 @@ A Python command-line tool for auditing Microsoft Entra ID (Azure AD) user accou
 
 The tool can connect live to a real Entra ID tenant via the Microsoft Graph API and audit real users. If no live credentials are configured, it falls back to local sample data, so the tool always runs standalone.
 
+Its findings feed into [AI Security Assistant](https://github.com/recica/ai-security-assistant), which pulls together results from this tool and others into one prioritized summary.
+
 ## Features
 
 - Load users live from Microsoft Graph via device-code sign-in, with automatic fallback to local sample data
